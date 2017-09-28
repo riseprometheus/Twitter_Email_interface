@@ -33,13 +33,13 @@ class guiWindow(tkinter.Frame):
         print(tweet)
 
         if not (tweet and tweet.strip()):
-            messagebox.showwarning("Warning","There is nothing to submit. Try Again.")
+            messagebox.showwarning("Warning","There is nothing to submit. Try Again.",parent=topLevel)
             return
         if len(tweet)>140:
-            messagebox.showwarning("Warning","Your current tweet is too long. Please shorten.")
+            messagebox.showwarning("Warning","Your current tweet is too long. Please shorten.",parent=topLevel)
             return
 
-        messagebox.showinfo("Success", "Text Captured.")
+        messagebox.showinfo("Success", "Text Captured.",parent=topLevel)
         #implement tweet mechanism when oath tokens are set up
         topLevel.destroy()
 
