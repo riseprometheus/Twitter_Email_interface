@@ -1,22 +1,33 @@
-import tkinter
+from tkinter import *
 from tkinter import messagebox
+import tkinter
 import tweepy
 
 class guiWindow(tkinter.Frame):
+    manualTweetOpenFlag=False
     def __init__(self, master=None):
         super().__init__(master)
         #move into function that will be called in constructor 
-        master.l1 = tkinter.Label(master,text="What would you like to do?")
+        
+        master.LFrame = tkinter.LabelFrame(master,text="Twitter/Email Interface",
+                    padx=20, pady=20,relief='sunken')
+        master.LFrame.grid(column=1)
+        
+        
+        
+        master.l1 = tkinter.Label(master.LFrame,text="What would you like to do?")
         master.l1.grid(row=1, column=1)
-        master.tweetButton = tkinter.Button(master,text="Send Manual Tweet",command=self.create_widgets)
+        
+        
+        master.tweetButton = tkinter.Button(master.LFrame,text="Send Manual Tweet",command=self.create_widgets)
         master.tweetButton.grid(row=2, column=1)
         
-        master.grid_rowconfigure(0, weight=1)
-        master.grid_columnconfigure(0, weight=1)
-        master.grid_rowconfigure(3, weight=1)
-        master.grid_columnconfigure(3, weight=1)
 
     def create_widgets(self):
+        if self.manualTweetOpenFlag:
+            return
+        self.manualTweetOpenFlag=True
+        
         top = tkinter.Toplevel(self)
         top.title('Send Manual Tweet')
         top.l1 = tkinter.Label(top,text="What would you like to tweet?")
@@ -42,9 +53,10 @@ class guiWindow(tkinter.Frame):
         messagebox.showinfo("Success", "Text Captured.",parent=topLevel)
         #implement tweet mechanism when oath tokens are set up
         topLevel.destroy()
+        self.manualTweetOpenFlag=False
 
 root = tkinter.Tk()
 root.title('Root Window')
-root.geometry('500x100')
+
 app = guiWindow(master=root)
 root.mainloop()
