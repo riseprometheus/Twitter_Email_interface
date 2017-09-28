@@ -5,21 +5,26 @@ import tweepy
 class guiWindow(tkinter.Frame):
     def __init__(self, master=None):
         super().__init__(master)
-        self.pack()
-        self.create_widgets()
+        #move into function that will be called in constructor 
+        master.l1 = tkinter.Label(master,text="What would you like to do?")
+        master.l1.grid(row=0)
+        master.tweetButton = tkinter.Button(master,text="Send Manual Tweet",command=self.create_widgets)
+        master.tweetButton.grid(row=1)
 
     def create_widgets(self):
-        self.l1 = tkinter.Label(self,text="What would you like to tweet?")
-        self.l1.grid(row=0)
-        self.t1 = tkinter.Text(self)
-        self.t1.grid(row=1)
-        self.t1.config(background='PeachPuff2')
-        self.b1 = tkinter.Button(self,text="Submit",command=self.submit)
-        self.b1.grid(row=2)
+        top = tkinter.Toplevel(self)
+        top.title('Send Manual Tweet')
+        top.l1 = tkinter.Label(top,text="What would you like to tweet?")
+        top.l1.grid(row=0)
+        top.t1 = tkinter.Text(top)
+        top.t1.grid(row=1)
 
-    def submit(self):
-        tweet=self.t1.get('1.0',tkinter.END)
-        self.t1.delete('1.0',tkinter.END)
+        top.b1 = tkinter.Button(top,text="Submit",command=lambda:self.submit(top))
+        top.b1.grid(row=2)
+
+    def submit(self,topLevel):
+        tweet=topLevel.t1.get('1.0',tkinter.END)
+        topLevel.t1.delete('1.0',tkinter.END)
         print(tweet)
 
         if not (tweet and tweet.strip()):
@@ -29,9 +34,12 @@ class guiWindow(tkinter.Frame):
             messagebox.showwarning("Warning","Your current tweet is too long. Please shorten.")
             return
 
-        messagebox.showinfo("Success", "Tweet Sent.")
+        messagebox.showinfo("Success", "Text Captured.")
+        #implement tweet mechanism when oath tokens are set up
+        topLevel.destroy()
 
 root = tkinter.Tk()
-root.configure(background='coral1')
+root.title('Root Window')
+root.geometry('500x100')
 app = guiWindow(master=root)
 root.mainloop()
