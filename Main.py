@@ -1,7 +1,8 @@
 import tkinter
 from tkinter import messagebox
+import tweepy
+
 class guiWindow(tkinter.Frame):
-    tweet=""
     def __init__(self, master=None):
         super().__init__(master)
         self.pack()
