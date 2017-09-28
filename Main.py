@@ -1,6 +1,7 @@
 import tkinter
 from tkinter import messagebox
 class guiWindow(tkinter.Frame):
+    tweet=""
     def __init__(self, master=None):
         super().__init__(master)
         self.pack()
@@ -16,9 +17,18 @@ class guiWindow(tkinter.Frame):
         self.b1.grid(row=2)
 
     def submit(self):
+        tweet=self.t1.get('1.0',tkinter.END)
         self.t1.delete('1.0',tkinter.END)
-        messagebox.showinfo("Succes", "Tweet Sent.")
-        print("Button was pressed.")
+        print(tweet)
+
+        if not (tweet and tweet.strip()):
+            messagebox.showwarning("Warning","There is nothing to submit. Try Again.")
+            return
+        if len(tweet)>140:
+            messagebox.showwarning("Warning","Your current tweet is too long. Please shorten.")
+            return
+
+        messagebox.showinfo("Success", "Tweet Sent.")
 
 root = tkinter.Tk()
 root.configure(background='coral1')
