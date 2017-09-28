@@ -7,9 +7,14 @@ class guiWindow(tkinter.Frame):
         super().__init__(master)
         #move into function that will be called in constructor 
         master.l1 = tkinter.Label(master,text="What would you like to do?")
-        master.l1.grid(row=0)
+        master.l1.grid(row=1, column=1)
         master.tweetButton = tkinter.Button(master,text="Send Manual Tweet",command=self.create_widgets)
-        master.tweetButton.grid(row=1)
+        master.tweetButton.grid(row=2, column=1)
+        
+        master.grid_rowconfigure(0, weight=1)
+        master.grid_columnconfigure(0, weight=1)
+        master.grid_rowconfigure(3, weight=1)
+        master.grid_columnconfigure(3, weight=1)
 
     def create_widgets(self):
         top = tkinter.Toplevel(self)
