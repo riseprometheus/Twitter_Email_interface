@@ -16,6 +16,17 @@ class guiWindow(tkinter.Frame):
         master.tweetButton = tkinter.Button(master.LFrame, text="Send Manual Tweet",
                                             command = lambda: self.create_widgets(master))
         master.tweetButton.grid(row=2, column=1)
+
+        master.LFrame2 = tkinter.LabelFrame(master, text = "Import New Submissions",
+                                            padx=15, pady=15,relief='sunken')
+        master.LFrame2.grid(row=3,columnspan=2,rowspan=2, padx=5, pady=5,stick=NS)
+        master.l2 = tkinter.Label(master.LFrame2, text="What would you like to do?")
+        master.l2.grid(row=4, column=1)
+        master.importButtons = tkinter.Button(master.LFrame2, text="Import",
+                                            command = lambda: self.dummyButton(master))
+        master.importButtons.grid(row=5, column=1)
+
+
     def create_widgets(self,master):
         if self.manualTweetOpenFlag:
             return
@@ -52,6 +63,9 @@ class guiWindow(tkinter.Frame):
     def closeManualTweetWindow(self, topLevel):
         self.manualTweetOpenFlag=False
         topLevel.destroy()
+
+    def dummyButton(self,master):
+        messagebox.showinfo('dummy button', 'dummy button', parent=master)
 root = tkinter.Tk()
 root.title('Root Window')
 app = guiWindow(master=root)
